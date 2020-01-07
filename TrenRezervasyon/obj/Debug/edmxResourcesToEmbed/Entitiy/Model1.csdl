@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TrenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TrenEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bilet" EntityType="TrenModel.Bilet" />
+    <EntitySet Name="Kullanici" EntityType="TrenModel.Kullanici" />
+    <EntitySet Name="Sefer" EntityType="TrenModel.Sefer" />
+    <EntitySet Name="Tren" EntityType="TrenModel.Tren" />
+    <AssociationSet Name="FK_Sefer_Tren" Association="TrenModel.FK_Sefer_Tren">
+      <End Role="Tren" EntitySet="Tren" />
+      <End Role="Sefer" EntitySet="Sefer" />
+    </AssociationSet>
+    <EntitySet Name="Koltuk" EntityType="TrenModel.Koltuk" />
+    <AssociationSet Name="FK_Koltuk_Kullanici" Association="TrenModel.FK_Koltuk_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Koltuk" EntitySet="Koltuk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Koltuk_Tren" Association="TrenModel.FK_Koltuk_Tren">
+      <End Role="Tren" EntitySet="Tren" />
+      <End Role="Koltuk" EntitySet="Koltuk" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Bilet">
+    <Key>
+      <PropertyRef Name="BiletID" />
+    </Key>
+    <Property Name="BiletID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SeferID" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="durum" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+    </Key>
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kullaniciSifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kullaniciTip" Type="Boolean" Nullable="false" />
+    <Property Name="adi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="soyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="adres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="telefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tckimlikno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cinsiyet" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Koltuk" Relationship="TrenModel.FK_Koltuk_Kullanici" FromRole="Kullanici" ToRole="Koltuk" />
+  </EntityType>
+  <EntityType Name="Sefer">
+    <Key>
+      <PropertyRef Name="SeferID" />
+    </Key>
+    <Property Name="SeferID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="seferTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="seferYonu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="varisYonu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TrenID" Type="Int32" Nullable="false" />
+    <Property Name="durum" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Tren" Relationship="TrenModel.FK_Sefer_Tren" FromRole="Sefer" ToRole="Tren" />
+  </EntityType>
+  <EntityType Name="Tren">
+    <Key>
+      <PropertyRef Name="TrenID" />
+    </Key>
+    <Property Name="TrenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="trenAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="koltukSayisi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sefer" Relationship="TrenModel.FK_Sefer_Tren" FromRole="Tren" ToRole="Sefer" />
+    <NavigationProperty Name="Koltuk" Relationship="TrenModel.FK_Koltuk_Tren" FromRole="Tren" ToRole="Koltuk" />
+  </EntityType>
+  <Association Name="FK_Sefer_Tren">
+    <End Type="TrenModel.Tren" Role="Tren" Multiplicity="1" />
+    <End Type="TrenModel.Sefer" Role="Sefer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tren">
+        <PropertyRef Name="TrenID" />
+      </Principal>
+      <Dependent Role="Sefer">
+        <PropertyRef Name="TrenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Koltuk">
+    <Key>
+      <PropertyRef Name="KoltukID" />
+    </Key>
+    <Property Name="KoltukID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TrenID" Type="Int32" Nullable="false" />
+    <Property Name="durum" Type="Boolean" Nullable="false" />
+    <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tcno" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="telefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KullaniciID" Type="Int32" />
+    <NavigationProperty Name="Kullanici" Relationship="TrenModel.FK_Koltuk_Kullanici" FromRole="Koltuk" ToRole="Kullanici" />
+    <NavigationProperty Name="Tren" Relationship="TrenModel.FK_Koltuk_Tren" FromRole="Koltuk" ToRole="Tren" />
+  </EntityType>
+  <Association Name="FK_Koltuk_Kullanici">
+    <End Type="TrenModel.Kullanici" Role="Kullanici" Multiplicity="0..1" />
+    <End Type="TrenModel.Koltuk" Role="Koltuk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Koltuk">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Koltuk_Tren">
+    <End Type="TrenModel.Tren" Role="Tren" Multiplicity="1" />
+    <End Type="TrenModel.Koltuk" Role="Koltuk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tren">
+        <PropertyRef Name="TrenID" />
+      </Principal>
+      <Dependent Role="Koltuk">
+        <PropertyRef Name="TrenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

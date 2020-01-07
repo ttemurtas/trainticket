@@ -1,0 +1,6 @@
+//admin:
+kullanıcı adı:tyf34      şifre:12345
+
+//user
+kullanıcı adı:emir       şifre:12345
+kullanıcı adı:yigit123   şifre:12345

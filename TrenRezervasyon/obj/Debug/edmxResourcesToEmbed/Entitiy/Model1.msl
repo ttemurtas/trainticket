@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TrenModelStoreContainer" CdmEntityContainer="TrenEntities">
+    <EntitySetMapping Name="Bilet">
+      <EntityTypeMapping TypeName="TrenModel.Bilet">
+        <MappingFragment StoreEntitySet="Bilet">
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="SeferID" ColumnName="SeferID" />
+          <ScalarProperty Name="BiletID" ColumnName="BiletID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanici">
+      <EntityTypeMapping TypeName="TrenModel.Kullanici">
+        <MappingFragment StoreEntitySet="Kullanici">
+          <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
+          <ScalarProperty Name="tckimlikno" ColumnName="tckimlikno" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="adres" ColumnName="adres" />
+          <ScalarProperty Name="soyadi" ColumnName="soyadi" />
+          <ScalarProperty Name="adi" ColumnName="adi" />
+          <ScalarProperty Name="kullaniciTip" ColumnName="kullaniciTip" />
+          <ScalarProperty Name="kullaniciSifre" ColumnName="kullaniciSifre" />
+          <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sefer">
+      <EntityTypeMapping TypeName="TrenModel.Sefer">
+        <MappingFragment StoreEntitySet="Sefer">
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="TrenID" ColumnName="TrenID" />
+          <ScalarProperty Name="varisYonu" ColumnName="varisYonu" />
+          <ScalarProperty Name="seferYonu" ColumnName="seferYonu" />
+          <ScalarProperty Name="seferTarihi" ColumnName="seferTarihi" />
+          <ScalarProperty Name="SeferID" ColumnName="SeferID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tren">
+      <EntityTypeMapping TypeName="TrenModel.Tren">
+        <MappingFragment StoreEntitySet="Tren">
+          <ScalarProperty Name="koltukSayisi" ColumnName="koltukSayisi" />
+          <ScalarProperty Name="trenAdi" ColumnName="trenAdi" />
+          <ScalarProperty Name="TrenID" ColumnName="TrenID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Koltuk">
+      <EntityTypeMapping TypeName="TrenModel.Koltuk">
+        <MappingFragment StoreEntitySet="Koltuk">
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="adres" ColumnName="adres" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="tcno" ColumnName="tcno" />
+          <ScalarProperty Name="soyadi" ColumnName="soyadi" />
+          <ScalarProperty Name="adi" ColumnName="adi" />
+          <ScalarProperty Name="durum" ColumnName="durum" />
+          <ScalarProperty Name="TrenID" ColumnName="TrenID" />
+          <ScalarProperty Name="KoltukID" ColumnName="KoltukID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TrenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bilet">
+    <Key>
+      <PropertyRef Name="BiletID" />
+    </Key>
+    <Property Name="BiletID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SeferID" Type="int" Nullable="false" />
+    <Property Name="KullaniciID" Type="int" Nullable="false" />
+    <Property Name="durum" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Koltuk">
+    <Key>
+      <PropertyRef Name="KoltukID" />
+    </Key>
+    <Property Name="KoltukID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrenID" Type="int" Nullable="false" />
+    <Property Name="durum" Type="bit" Nullable="false" />
+    <Property Name="adi" Type="nvarchar" MaxLength="50" />
+    <Property Name="soyadi" Type="nvarchar" MaxLength="50" />
+    <Property Name="tcno" Type="nvarchar" MaxLength="11" />
+    <Property Name="telefon" Type="nvarchar" MaxLength="11" />
+    <Property Name="adres" Type="nvarchar" MaxLength="50" />
+    <Property Name="KullaniciID" Type="int" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+    </Key>
+    <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kullaniciSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="kullaniciTip" Type="bit" Nullable="false" />
+    <Property Name="adi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="soyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tckimlikno" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cinsiyet" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sefer">
+    <Key>
+      <PropertyRef Name="SeferID" />
+    </Key>
+    <Property Name="SeferID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="seferTarihi" Type="datetime" Nullable="false" />
+    <Property Name="seferYonu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="varisYonu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TrenID" Type="int" Nullable="false" />
+    <Property Name="durum" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tren">
+    <Key>
+      <PropertyRef Name="TrenID" />
+    </Key>
+    <Property Name="TrenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="trenAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="koltukSayisi" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Koltuk_Kullanici">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="0..1" />
+    <End Role="Koltuk" Type="Self.Koltuk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Koltuk">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Koltuk_Tren">
+    <End Role="Tren" Type="Self.Tren" Multiplicity="1" />
+    <End Role="Koltuk" Type="Self.Koltuk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tren">
+        <PropertyRef Name="TrenID" />
+      </Principal>
+      <Dependent Role="Koltuk">
+        <PropertyRef Name="TrenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sefer_Tren">
+    <End Role="Tren" Type="Self.Tren" Multiplicity="1" />
+    <End Role="Sefer" Type="Self.Sefer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tren">
+        <PropertyRef Name="TrenID" />
+      </Principal>
+      <Dependent Role="Sefer">
+        <PropertyRef Name="TrenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TrenModelStoreContainer">
+    <EntitySet Name="Bilet" EntityType="Self.Bilet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Koltuk" EntityType="Self.Koltuk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sefer" EntityType="Self.Sefer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tren" EntityType="Self.Tren" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Koltuk_Kullanici" Association="Self.FK_Koltuk_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Koltuk" EntitySet="Koltuk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Koltuk_Tren" Association="Self.FK_Koltuk_Tren">
+      <End Role="Tren" EntitySet="Tren" />
+      <End Role="Koltuk" EntitySet="Koltuk" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sefer_Tren" Association="Self.FK_Sefer_Tren">
+      <End Role="Tren" EntitySet="Tren" />
+      <End Role="Sefer" EntitySet="Sefer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
